@@ -44,16 +44,19 @@ public class MainActivity extends AppCompatActivity {
 
     EditText mResultEt;
     ImageView mPreviewIv;
+    ImageView startimage;
     private static final int CAMERA_REQUEST_CODE=200;
     private static final int STORAGE_REQUEST_CODE=400;
     private static final int IMAGE_PICK_GALLERY_CODE=1000;
     private static final int IMAGE_PICK_CAMERA_CODE=1001;
     private String fileName;
-    private String filepath = "AIDL txt files";
+    private String filepath = "AIDL txt and jpg files";
     File myExternalFile;
+    File imageFile;
     String cameraPermission[];
     String storagePermission[];
     Button saveButton;
+    Bitmap bitmap;
 
     Uri image_uri;
 
@@ -65,21 +68,33 @@ public class MainActivity extends AppCompatActivity {
         ActionBar actionbar = getSupportActionBar();
 
         mResultEt = findViewById(R.id.resultEt);
-        mPreviewIv = findViewById(R.id.imageIv);
+        startimage=findViewById(R.id.startimage);
+        mPreviewIv = findViewById(R.id.imageview);
         cameraPermission=new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
         storagePermission = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
-         fileName= new SimpleDateFormat("yyyyMMddHHmm'.txt'").format(new Date());
-        myExternalFile = new File(getExternalFilesDir(filepath), fileName);
+         fileName= new SimpleDateFormat("yyyyMMddHHmm").format(new Date());
+        myExternalFile = new File(getExternalFilesDir(filepath), fileName+".txt");
+        imageFile = new File(getExternalFilesDir(filepath),fileName+".jpg");
 
         saveButton =
                 (Button) findViewById(R.id.saveButton);
+
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
+                    saveButton.setTextColor(getResources().getColor(android.R.color.holo_blue_dark));
+                    saveButton.setBackgroundColor(getResources().getColor(android.R.color.white));
                     FileOutputStream fos = new FileOutputStream(myExternalFile);
                     fos.write(mResultEt.getText().toString().getBytes());
                     fos.close();
+
+
+                    FileOutputStream out = new FileOutputStream(imageFile);
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+                    out.flush();
+                    out.close();
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -220,7 +235,12 @@ public class MainActivity extends AppCompatActivity {
                 Uri resultUri = result.getUri();
                 mPreviewIv.setImageURI(resultUri);
                 BitmapDrawable bitmapDrawable = (BitmapDrawable) mPreviewIv.getDrawable();
-                Bitmap bitmap = bitmapDrawable.getBitmap();
+                bitmap = bitmapDrawable.getBitmap();
+                startimage.setVisibility(View.INVISIBLE);
+                mPreviewIv.setImageBitmap(bitmap);
+                mPreviewIv.setVisibility(View.VISIBLE);
+
+
                 TextRecognizer recognizer = new TextRecognizer.Builder(getApplicationContext()).build();
                 if(!recognizer.isOperational()){
                     Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();

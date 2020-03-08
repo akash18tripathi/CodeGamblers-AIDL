@@ -7,75 +7,72 @@
     android:gravity="center_horizontal"
     tools:context=".MainActivity">
 
+
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="300dp"
+            android:id="@+id/imageview"
+            android:visibility="invisible"
+            android:layout_marginTop="40dp"
+            />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="300dp"
+            android:background="@drawable/logo"
+            android:layout_marginTop="40dp"
+            android:alpha="0.5"
+            android:id="@+id/startimage"
+            android:visibility="visible"
+            />
+
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/imageview"
         android:orientation="vertical"
         android:padding="5dp">
-
-
-    </LinearLayout>
-
-    <EditText
-        android:id="@+id/resultEt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:autoLink="all"
-        android:background="@null"
-        android:backgroundTint="@color/colorPrimaryDark"
-        android:padding="5dp"
-        android:textColor="#000"
-        android:textColorHint="@color/colorPrimaryDark" />
-
-    <LinearLayout
-        android:layout_width="401dp"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
 
         <Button
             android:id="@+id/saveButton"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_margin="30dp"
-            android:background="@color/colorPrimary"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/roundbutton"
             android:baselineAligned="false"
             android:clickable="true"
-            android:gravity="center"
-            android:padding="20dp"
-            android:layout_below="@id/linearLayout2"
+            android:layout_gravity="center_horizontal"
+            android:padding="15dp"
+            android:layout_below="@id/resultEt"
             android:text="Save"
+            android:textColor="#ffffff"
             android:textSize="25dp">
 
         </Button>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Result"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="20sp" />
-    </LinearLayout>
 
-    <LinearLayout
+
+
+        <EditText
+        android:id="@+id/resultEt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="5dp">
+        android:autoLink="all"
+        android:layout_below="@+id/saveButton"
+        android:background="@null"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:padding="5dp"
+        android:textColor="#000"
+        android:textColorHint="@color/colorPrimaryDark" />
+
 
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:padding="5dp">
 
-        <ImageView
-            android:id="@+id/imageIv"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </LinearLayout>
+
 </RelativeLayout>
